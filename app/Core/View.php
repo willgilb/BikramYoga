@@ -8,7 +8,7 @@ use function extract;
 
 class View
 {
-    function render(string $view, array $data)
+    function render(string $view, array $data = [])
     {
         extract($data);
         require(VIEWS_DIR . $view . '.php');
