@@ -126,11 +126,12 @@ class RegisterController
                 $this->password_repeat = null;
             }
 
+            if ($this->username && $this->user->byUsername($this->username)) {
+                $this->error['username_taken'] = 'Please choose a different username';
+            }
+
             if (empty($this->error)) {
-
-                $byUsername = $this->user->byUsername($this->username);
-
-                if (!$byUsername && $this->storeUser()) {
+                if ($this->storeUser()) {
                     $this->debug['insert_user'] = 'Success';
                 } else {
                     $this->debug['insert_user'] = 'Error';
