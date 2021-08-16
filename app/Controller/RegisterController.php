@@ -126,6 +126,12 @@ class RegisterController
                 if ($this->email && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
                     $this->error['email'] = 'Enter a valid emailadres';
                 }
+
+                // check if email is free to register
+                $byEmail = $this->user->byEmail($this->email);
+                if ($byEmail && strcmp($this->email, $byEmail->email) === 0) {
+                    $this->error['email'] = 'Please choose a different emailadres';
+                }
             }
 
             // check if password exists
