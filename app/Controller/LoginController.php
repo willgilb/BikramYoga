@@ -9,11 +9,12 @@ use Core\View;
 use Model\User;
 use Core\Session;
 use Core\Database;
-use function trim;
-
 use Model\AuthUser;
+
 use function filter_input;
 use function filter_has_var;
+use function redirect;
+use function sanitize;
 
 class LoginController
 {
