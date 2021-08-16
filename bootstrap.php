@@ -73,3 +73,13 @@ function currentUri()
     // Remove trailing slash + enforce a slash at the start
     return '/' . trim($uri, '/');
 }
+
+/**
+ * Returns sanitized string.
+ *
+ * @return string
+ */
+function sanitize(string $str)
+{
+    return htmlentities(strip_tags(trim($str)), ENT_QUOTES, 'UTF-8');
+}
