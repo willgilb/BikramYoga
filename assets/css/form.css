@@ -229,7 +229,7 @@ svg#definition {
 }
 
 .header,
-form {
+.form {
   padding: 1em;
   border: 1px solid #b0c4de;
 }
@@ -242,23 +242,23 @@ form {
   border-radius: 10px 10px 0 0;
 }
 
-form {
+.form {
   background: #fff;
   border-radius: 0 0 10px 10px;
 }
 
-form p {
+.form p {
   display: inline;
   padding: 0 1em;
 }
 
-form label {
+.form label {
   display: block;
   text-align: left;
-  margin-bottom: .2em;
+  margin-bottom: 0.2em;
 }
 
-form input {
+.form input {
   height: 30px;
   width: 100%;
   padding: 5px 10px;
@@ -321,8 +321,8 @@ input[type="submit"] {
 }
 
 .bottom-right {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
 .bottom-right p {
@@ -330,7 +330,6 @@ input[type="submit"] {
   align-self: flex-start;
   width: 30vh;
   padding: 0;
-
 }
 
 @media (max-width: 1360px) {
