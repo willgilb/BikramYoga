@@ -19,7 +19,7 @@ class HomeController
         $this->view = new View;
     }
 
-    public function showIndex()
+    public function displayIndex()
     {
         $auth_user = $this->session->get('auth_user');
 
