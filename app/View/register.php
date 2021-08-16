@@ -16,7 +16,7 @@
                 <h1>Register</h1>
             </header>
             <main>
-                <form method="post" action="<?php echo URI_PUBLIC; ?>register">
+                <form class="form" method="post" action="<?php echo URI_PUBLIC; ?>register">
                     <?php echo $csrf->generateToken(); ?>
                     <fieldset>
                         <legend>Enter the requested details</legend>
