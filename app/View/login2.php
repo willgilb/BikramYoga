@@ -16,7 +16,7 @@
                 <h1>Login</h1>
             </header>
             <main>
-                <form method="post" action="<?php echo URI_PUBLIC; ?>login">
+                <form class="form" method="post" action="<?php echo URI_PUBLIC; ?>login">
                     <fieldset>
                         <legend>Enter your login credentials</legend>
                         <?php include('required_icon.svg'); ?>
