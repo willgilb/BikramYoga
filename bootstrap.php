@@ -16,6 +16,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ABS_PATH', dirname(__DIR__));
 define('VIEWS_DIR', APP_PATH . DS . 'View' . DS);
 define('URI_PUBLIC', getenv('URI_PUBLIC') ?: 'URI_PUBLIC not set!');
+define('DEBUG', filter_var(getenv('DEBUG'), FILTER_VALIDATE_BOOLEAN) ?: false);
 
 // public paths
 define('ASSETS_PATH', 'assets/');
