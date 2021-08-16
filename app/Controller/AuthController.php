@@ -8,6 +8,9 @@ use Core\Session;
 use Core\View;
 use Model\AuthUser;
 
+use function currentUri;
+use function redirect;
+
 class AuthController
 {
     protected object $session;
