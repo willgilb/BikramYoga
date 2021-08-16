@@ -22,7 +22,7 @@ class User
 
     public function insertUser()
     {
-        $sql = "INSERT INTO user (username, email, role_id, pwhash) VALUES (:username, :email, :role_id, :pwhash)";
+        $sql = "INSERT INTO users (username, email, role_id, pwhash) VALUES (:username, :email, :role_id, :pwhash)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':username', $this->username, \PDO::PARAM_STR);
         $stmt->bindValue(':email', $this->email, \PDO::PARAM_STR);
