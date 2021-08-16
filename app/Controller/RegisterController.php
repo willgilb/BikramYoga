@@ -81,77 +81,93 @@ class RegisterController
                 }
             }
 
-            // sanitize and validate username
+            // check if username exists
             if (filter_has_var(INPUT_POST, 'username')) {
+
+                // sanitize username value
                 $this->username = sanitize(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
 
+                // set error if username is empty
                 if (empty($this->username)) {
                     $this->error['username'] = 'No username was given';
                 }
 
+                // check if username is free to register
+                if ($this->username && $this->user->byUsername($this->username)) {
+                    $this->error['username'] = 'Please choose a different username';
+                }
+
+                // set error is username length is less then 2 chars
                 if ($this->username && strlen($this->username) < 2) {
                     $this->error['username'] = 'Username must contain at least 2 characters';
                 }
 
+                // set error is username length is more then 15 chars
                 if ($this->username && strlen($this->username) > 15) {
                     $this->error['username'] = 'Username must contain no more then 15 characters';
                 }
             }
 
-            // sanitize and validate email
+            // check if email exists
             if (filter_has_var(INPUT_POST, 'email')) {
                 $this->email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
 
+                // set error if email is empty
                 if (empty($this->email)) {
                     $this->error['email'] = 'No email was given';
                 }
 
+                // check if email contains a valid emailadres
                 if ($this->email && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
                     $this->error['email'] = 'Enter a valid emailadres';
                 }
             }
 
-            // sanitize and validate password
+            // check if password exists
             if (filter_has_var(INPUT_POST, 'password')) {
                 $this->password = sanitize(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
+                // set error if password is empty
                 if (empty($this->password)) {
                     $this->error['password'] = 'No password was given';
                 }
 
+                // set error if password length is less then 6 chars
                 if ($this->password && strlen($this->password) < 6) {
                     $this->error['password'] = 'Password must contain at least 6 characters';
                 }
             }
 
-            // sanitize and validate password
+            // check if password_repeat exists
             if (filter_has_var(INPUT_POST, 'password_repeat')) {
                 $this->password_repeat = sanitize(filter_input(INPUT_POST, 'password_repeat', FILTER_SANITIZE_STRING));
                 htmlentities($this->password_repeat, ENT_QUOTES, 'UTF-8');
 
+                // set error if password_repeat is empty
                 if (empty($this->password_repeat)) {
                     $this->error['password_repeat'] = 'No password repeat was given';
                 }
 
+                // set error if password_repeat length is less then 6 chars
                 if ($this->password && strlen($this->password_repeat) < 6) {
                     $this->error['password_repeat'] = 'Password must contain at least 6 characters';
                 }
             }
 
+            // check if password and password_repeat are the same
             if ($this->password && $this->password_repeat && strcmp($this->password, $this->password_repeat) !== 0) {
                 $this->error['password_mismatch'] = 'Passwords do not match';
                 $this->password = null;
                 $this->password_repeat = null;
             }
 
-            if ($this->username && $this->user->byUsername($this->username)) {
-                $this->error['username_taken'] = 'Please choose a different username';
-            }
-
+            // check if errors is empty
             if (empty($this->error)) {
+                // store the new user registration
                 if ($this->storeUser()) {
                     $this->debug['insert_user'] = 'Success';
                 } else {
+                    // fuck, something whent wrong
                     $this->debug['insert_user'] = 'Error';
                 }
             }
