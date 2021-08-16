@@ -13,6 +13,8 @@ use Model\AuthUser;
 use function filter_has_var;
 use function filter_input;
 use function trim;
+use function redirect;
+use function sanitize;
 
 
 class RegisterController
