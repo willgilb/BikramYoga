@@ -38,15 +38,6 @@ class LoginController
         $this->user = new User;
         $this->session = new Session;
         $this->view = new View;
-
-        $auth_user = $this->session->get('auth_user');
-        if (isset($auth_user)) {
-            var_dump($auth_user);
-        }
-
-        //var_dump($this->user);
-        //var_dump($this->password);
-        //var_dump($this->auth->validatePassword($this->user, $this->password));
     }
 
     public function displayForm()
@@ -62,65 +53,58 @@ class LoginController
         $this->view->render('login', $data);
     }
 
-    public function sanitizeInput()
-    {
-        if (filter_has_var(INPUT_POST, 'username')) {
-            $this->username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-        }
-        if (filter_has_var(INPUT_POST, 'password')) {
-            $this->password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-        }
-        if (filter_has_var(INPUT_POST, 'csrf_token')) {
-            $this->csrf_token = trim(filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_STRING));
-        }
-
-        // for reference only: currently not used
-        if (filter_has_var(INPUT_GET, 'id')) {
-            $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
-
-            if ($id === false) {
-                // handle error
-            }
-        }
-    }
-
-    public function validateInput()
-    {
-        if ($this->csrf->validateToken($this->csrf_token) === false) {
-            redirect('login');
-        }
-        if (empty($this->username)) {
-            $this->error['username'] = 'No username was given';
-        }
-        if (empty($this->password)) {
-            $this->error['password'] = 'No password was given';
-        }
-
-        if (!empty($this->username) && !empty($this->password) && !$this->user->byUsername($this->username)) {
-            $this->error['username'] = 'Wrong login credentials dummy, try again';
-        }
-    }
-
     public function processInput()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->sanitizeInput();
-            $this->validateInput();
+            // sanitize and validate csrf_token
+            if (filter_has_var(INPUT_POST, 'csrf_token')) {
 
-            if (empty($this->error)) {
-                
-                $validate = $this->auth->validatePassword($this->username, $this->password);
-                $byUsername = $this->user->byUsername($this->username);
+                $this->csrf_token = trim(filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_STRING));
+                htmlentities($this->csrf_token, ENT_QUOTES, 'UTF-8');
 
-                if ($validate && $byUsername) {
-                    $this->session->set('auth_user',  $byUsername);
-                    redirect();
-                } else {
+                // redirect to login if csrf_token is invalid
+                if ($this->csrf->validateToken($this->csrf_token) === false) {
                     redirect('login');
                 }
             }
+
+            // sanitize and validate username
+            if (filter_has_var(INPUT_POST, 'username')) {
+
+                $this->username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
+                htmlentities($this->username, ENT_QUOTES, 'UTF-8');
+
+                if (empty($this->username)) {
+                    $this->error['username'] = 'No username was given';
+                }
+            }
+
+            // sanitize and validate password
+            if (filter_has_var(INPUT_POST, 'password')) {
+
+                $this->password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+                htmlentities($this->password, ENT_QUOTES, 'UTF-8');
+
+                if (empty($this->password)) {
+                    $this->error['password'] = 'No password was given';
+                }
+            }
+
+            $validate = $this->auth->validatePassword($this->username, $this->password);
+
+            if ($this->username && $this->password && $validate === false) {
+                $this->error['validation'] = 'Wrong login credentials dummy, try again';
+            }
+
+            // make sure there a no errors
+            if (empty($this->error)) {
+                $this->session->set('auth_user', $this->user->byUsername($this->username));
+                redirect();
+            }
         }
+
+        // if not $_POST we display the login form
         $this->displayForm();
     }
 }

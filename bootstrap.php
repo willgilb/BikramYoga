@@ -1,20 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+use Core\DotEnv;
+
+// load the enviroment file
+(new DotEnv(__DIR__ . '/.env'))->load();
+
 ini_set('default_charset', 'UTF-8');
-date_default_timezone_set(TIMEZONE);
-setlocale(LC_ALL, LOCALE);
+date_default_timezone_set(getenv('TIMEZONE') ?: 'UTC');
+setlocale(LC_ALL, getenv('LOCALE') ?: 'en_EN');
 
 // define some paths
 define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(__FILE__));
 define('ABS_PATH', dirname(__DIR__));
-define('APP_PATH', ROOT . DS . 'app');
 define('VIEWS_DIR', APP_PATH . DS . 'View' . DS);
+define('URI_PUBLIC', getenv('URI_PUBLIC') ?: 'URI_PUBLIC not set!');
 
 // public paths
 define('ASSETS_PATH', 'assets/');
 define('CSS_PATH', URI_PUBLIC . ASSETS_PATH . 'css/');
 define('JS_PATH', URI_PUBLIC . ASSETS_PATH . 'js/');
+define('IMG_PATH', URI_PUBLIC . ASSETS_PATH . 'img/');
 
 // define other config
 define('COOKIE_LIFE', 1800);  // 30 minutes

@@ -16,7 +16,7 @@ use function str_shuffle;
 
 class AuthUser
 {
-    protected static string $pepper = AUTHENTICATION_PEPPER;
+    protected string $pepper;
     protected object $session;
 
     public ?string $username = null;
@@ -28,6 +28,7 @@ class AuthUser
     {
         $this->session = new Session;
         $this->user = new User;
+        $this->pepper = getenv('AUTHENTICATION_PEPPER');
     }
 
     /**
@@ -62,8 +63,8 @@ class AuthUser
      */
     public function generateHashedPassword(string $password): string
     {
-        if ((defined('AUTHENTICATION_PEPPER')) && (!empty(self::$pepper))) {
-            $hash = hash_hmac("sha256", $password, self::$pepper);
+        if (!empty($this->pepper)) {
+            $hash = hash_hmac("sha256", $password, $this->pepper);
             return password_hash($hash, PASSWORD_BCRYPT);
         }
 
@@ -82,7 +83,7 @@ class AuthUser
     {
         $user = $this->user->byUsername($username);
         if ($user) {
-            $hash = hash_hmac('sha256', $password, self::$pepper);
+            $hash = hash_hmac('sha256', $password, $this->pepper);
             return password_verify($hash, $user->pwhash);
         }
         return false;

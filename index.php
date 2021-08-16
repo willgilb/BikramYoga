@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 use Core\Router;
 
-require_once 'config.php';
-require_once 'bootstrap.php';
 require_once 'autoload.php';
+require_once 'bootstrap.php';
 
 $router = new Router();
 
@@ -14,10 +13,8 @@ $router->setNamespace('\Controller');
 $router->set404('ErrorController@notFound');
 
 // before middleware routes
-$router->before('GET', '/','AuthController@isLoggedIn');
-$router->before('GET', '/login','AuthController@isLoggedIn');
-
-//$router->before('POST', '/login','LoginController@processAuth');
+$router->before('GET', '/', 'AuthController@isLoggedIn');
+$router->before('GET', '/login', 'AuthController@isLoggedIn');
 
 $router->match('GET', '/', 'HomeController@showIndex');
 $router->match('GET|POST', '/login', 'LoginController@processInput');

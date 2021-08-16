@@ -3,24 +3,24 @@
 declare(strict_types=1);
 
 // The full URL of your website
-define('URI_PUBLIC', '');
+define('URI_PUBLIC', 'https://bikramyoga.test/');
 
 // Database configuration
 define('DRIVER', 'mysql');
 define('HOST', 'localhost');
 define('PORT', 3306);
-define('DBNAME', '');
+define('DBNAME', 'bikramyoga');
 define('CHARSET', 'utf8mb4');
-define('USER', '');
-define('PASSWORD', '');
+define('USER', 'root');
+define('PASSWORD', 'qwerty1972');
 
 // Locales configuration
-define('TIMEZONE', '');
-define('LOCALE', '');
+define('TIMEZONE', 'Europe/Amsterdam');
+define('LOCALE', 'nl_NL');
 
 // Debug configuration
-define('DEBUG', false);
+define('DEBUG', true);
 
 // Warning: Do not change or remove the value of the AUTHENTICATION_PEPPER
-// If you do so all user passwords must be updated
-define('AUTHENTICATION_PEPPER', '=BwM&$k8[a3y}k3(bFRz<w8a*{A\[/rY');
+// If you do so you must update all user passwords
+define('AUTHENTICATION_PEPPER', '6kTd@#vFK!C<+qK[5!Dw8%>43jF\,a');
