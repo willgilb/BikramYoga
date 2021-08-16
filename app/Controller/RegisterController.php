@@ -110,6 +110,8 @@ class RegisterController
 
             // check if email exists
             if (filter_has_var(INPUT_POST, 'email')) {
+
+                // sanitize email value
                 $this->email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
 
                 // set error if email is empty
@@ -125,6 +127,8 @@ class RegisterController
 
             // check if password exists
             if (filter_has_var(INPUT_POST, 'password')) {
+
+                // sanitize password value
                 $this->password = sanitize(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
                 // set error if password is empty
@@ -140,8 +144,9 @@ class RegisterController
 
             // check if password_repeat exists
             if (filter_has_var(INPUT_POST, 'password_repeat')) {
+
+                // sanitize password_repeat value
                 $this->password_repeat = sanitize(filter_input(INPUT_POST, 'password_repeat', FILTER_SANITIZE_STRING));
-                htmlentities($this->password_repeat, ENT_QUOTES, 'UTF-8');
 
                 // set error if password_repeat is empty
                 if (empty($this->password_repeat)) {
