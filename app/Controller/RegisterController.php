@@ -174,10 +174,10 @@ class RegisterController
                 // store the new user registration
                 if ($this->storeUser()) {
                     // yeah stored fucking successfull
-                    $this->debug['insert_user'] = 'Success';
+                    redirect('register_success');
                 } else {
                     // fuck, something went wrong
-                    $this->debug['insert_user'] = 'Error';
+                    $this->debug['add_user'] = 'Error';
                 }
             }
         }
