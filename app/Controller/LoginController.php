@@ -60,8 +60,7 @@ class LoginController
             // sanitize and validate csrf_token
             if (filter_has_var(INPUT_POST, 'csrf_token')) {
 
-                $this->csrf_token = trim(filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_STRING));
-                htmlentities($this->csrf_token, ENT_QUOTES, 'UTF-8');
+                $this->csrf_token = sanitize(filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_STRING));
 
                 // redirect to login if csrf_token is invalid
                 if ($this->csrf->validateToken($this->csrf_token) === false) {
@@ -72,8 +71,7 @@ class LoginController
             // sanitize and validate username
             if (filter_has_var(INPUT_POST, 'username')) {
 
-                $this->username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-                htmlentities($this->username, ENT_QUOTES, 'UTF-8');
+                $this->username = sanitize(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
 
                 if (empty($this->username)) {
                     $this->error['username'] = 'No username was given';
@@ -83,8 +81,7 @@ class LoginController
             // sanitize and validate password
             if (filter_has_var(INPUT_POST, 'password')) {
 
-                $this->password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-                htmlentities($this->password, ENT_QUOTES, 'UTF-8');
+                $this->password = sanitize(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
                 if (empty($this->password)) {
                     $this->error['password'] = 'No password was given';
