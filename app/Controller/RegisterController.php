@@ -70,9 +70,13 @@ class RegisterController
 
     public function processInput()
     {
+        // checkinput on form submit
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            // check if csrf_token exists
             if (filter_has_var(INPUT_POST, 'csrf_token')) {
+
+                // sanitize csrf_token value
                 $this->csrf_token = sanitize(filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_STRING));
 
                 // redirect to login if csrf_token is invalid
