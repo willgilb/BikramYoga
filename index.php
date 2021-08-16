@@ -16,9 +16,10 @@ $router->set404('ErrorController@notFound');
 $router->before('GET', '/', 'AuthController@isLoggedIn');
 $router->before('GET', '/login', 'AuthController@isLoggedIn');
 
-$router->match('GET', '/', 'HomeController@showIndex');
+$router->match('GET', '/', 'HomeController@displayIndex');
 $router->match('GET|POST', '/login', 'LoginController@processInput');
 $router->match('GET|POST', '/register', 'RegisterController@processInput');
+$router->match('GET', '/success', 'RegisterController@displaySuccess');
 
 $router->match('GET', '/logout', 'AuthController@logOut');
 
