@@ -161,7 +161,7 @@ class RegisterController
 
             // check if password and password_repeat are the same
             if ($this->password && $this->password_repeat && strcmp($this->password, $this->password_repeat) !== 0) {
-                $this->error['password_mismatch'] = 'Passwords do not match';
+                $this->error['password_repeat'] = 'Passwords do not match';
                 $this->password = null;
                 $this->password_repeat = null;
             }
