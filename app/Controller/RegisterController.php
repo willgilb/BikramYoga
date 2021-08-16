@@ -130,7 +130,7 @@ class RegisterController
                 // check if email is free to register
                 $byEmail = $this->user->byEmail($this->email);
                 if ($byEmail && strcmp($this->email, $byEmail->email) === 0) {
-                    $this->error['email'] = 'Please choose a different emailadres';
+                    $this->error['email'] = 'Please choose a different email address';
                 }
             }
 
