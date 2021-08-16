@@ -14,7 +14,7 @@
             <header class="header">
                 <h1>Thanks for registering</h1>
             </header>
-            <main>
+            <main class="form">
                 <p>You have succesfully registered. You can now <a href="<?php echo URI_PUBLIC; ?>/login">Login</a>.</p>
             </main>
         </div>
