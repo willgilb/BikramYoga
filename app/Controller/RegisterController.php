@@ -16,7 +16,6 @@ use function trim;
 use function redirect;
 use function sanitize;
 
-
 class RegisterController
 {
     public ?string $username = null;
@@ -70,7 +69,7 @@ class RegisterController
 
     public function processInput()
     {
-        // checkinput on form submit
+        // checkinput after form submit (POST request)
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // check if csrf_token exists
