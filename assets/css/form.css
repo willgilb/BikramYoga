@@ -333,7 +333,7 @@ input[type="submit"] {
 }
 
 @media (max-width: 1360px) {
-  form p {
+  .form p {
     display: block;
     padding: 0;
   }
