@@ -17,6 +17,7 @@
             </header>
             <main>
                 <form class="form" method="post" action="<?php echo URI_PUBLIC; ?>login">
+                    <?php echo $csrf->generateToken(); ?>
                     <fieldset>
                         <legend>Enter your login credentials</legend>
                         <?php include('required_icon.svg'); ?>
