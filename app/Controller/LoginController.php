@@ -11,10 +11,10 @@ use Core\Session;
 use Core\Database;
 use Model\AuthUser;
 
-use function filter_input;
-use function filter_has_var;
 use function redirect;
 use function sanitize;
+use function filter_input;
+use function filter_has_var;
 
 class LoginController
 {
